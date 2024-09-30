@@ -15,7 +15,6 @@ export default function Carta({ data }: any) {
           {data.map((producto: any) => {
             const [count, setCount] = useState(0);
             const [cart, setCart] = useState(false);
-            console.log(count);
 
             const handleSubmit = (event: any) => {
               event.preventDefault();
@@ -146,7 +145,6 @@ export default function Carta({ data }: any) {
           {contenido.map(({ name, count = 1, price }: any) => {
             const totalPrice = count * price;
             console.log(contenido);
-            console.log(count);
 
             return (
               <div key={name} className="py-4 border-b flex justify-between">
@@ -156,8 +154,8 @@ export default function Carta({ data }: any) {
                     <p className="text-[hsl(14,86%,42%)]">
                       {count === 0 ? "1" : count}x
                     </p>
-                    <p className="text-gray-400">${price}</p>
-                    <p className="text-gray-600">${totalPrice}</p>
+                    <p className="text-gray-400">${price}0</p>
+                    <p className="text-gray-600">${totalPrice.toFixed(2)}</p>
                   </div>
                 </div>
                 <button className="border-2 rounded-full p-1 place-self-center">
@@ -174,7 +172,7 @@ export default function Carta({ data }: any) {
           })}
           <div className="flex justify-between items-center pt-8">
             <p className="text-xs">Order Total </p>
-            <p className="text-xl font-bold"> ${precios}</p>
+            <p className="text-xl font-bold"> ${precios.toFixed(2)}</p>
           </div>
           <div className="text-center pt-8 ">
             <button className="text-white text-sm w-full bg-[hsl(14,86%,42%)] py-3 rounded-full">
