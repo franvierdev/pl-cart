@@ -41,7 +41,7 @@ export default function Carta({ data }: any) {
                       }
                     : item
                 );
-                return setContenido([...productos]);
+                return setContenido(productos);
               }
             }
 
@@ -50,7 +50,6 @@ export default function Carta({ data }: any) {
               setCantidad(cantidad - 1);
               setCount(count >= 1 ? count - 1 : count);
               count === 1 ? setCart(false) : setCart(true);
-
               if (contenido.find((item) => item.name === producto.name)) {
                 const productos = contenido.map((item) =>
                   item.name === producto.name
