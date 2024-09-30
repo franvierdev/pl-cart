@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function Carta({ data }: any) {
-  const [contenido, setContenido] = useState([]);
+  const [contenido, setContenido] = useState<{ name: string }[]>([]);
   const [precios, setPrecios] = useState(0);
   const [cantidad, setCantidad] = useState(0);
 
