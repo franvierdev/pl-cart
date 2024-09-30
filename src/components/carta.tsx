@@ -138,7 +138,7 @@ export default function Carta({ data }: any) {
         </div>
       </main>
       {contenido.length ? (
-        <div className="self-start bg-white rounded-lg px-4 py-6 w-[20%]">
+        <div className="self-start bg-white rounded-lg px-4 py-6 w-96">
           <h2 className="font-extrabold text-xl pb-4 tracking-wide text-[hsl(14,86%,42%)] ">
             Your Cart ({cantidad})
           </h2>
@@ -181,7 +181,7 @@ export default function Carta({ data }: any) {
           </div>
         </div>
       ) : (
-        <div className="self-start bg-white rounded-lg px-4 py-6 w-[20%]">
+        <div className="self-start bg-white rounded-lg px-4 py-6 w-96">
           <h2 className="font-extrabold text-xl pb-4 tracking-wide text-[hsl(14,86%,42%)] ">
             Your Cart ({cantidad})
           </h2>
