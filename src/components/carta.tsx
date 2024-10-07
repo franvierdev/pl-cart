@@ -1,11 +1,13 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
+import Cart from "./cart";
 
 export default function Carta({ data }: any) {
   const [contenido, setContenido] = useState<{ name: string }[]>([]);
   const [precios, setPrecios] = useState(0);
   const [cantidad, setCantidad] = useState(0);
+  console.log(contenido);
 
   return (
     <div className="flex justify-center py-6 gap-6 items-center ">
@@ -16,13 +18,27 @@ export default function Carta({ data }: any) {
             const [count, setCount] = useState(0);
             const [cart, setCart] = useState(false);
 
-            const handleSubmit = (event: any) => {
-              event.preventDefault();
+            const handleSubmit = () => {
               cart === false ? setCart(true) : setCart(false);
+              // setTimeout(() => {
+              //   setCart(false);
+              // }, 3000);
               setCount(count + 1);
-              setContenido([...contenido, producto]);
               setPrecios(precios + +producto.price);
               setCantidad(cantidad + 1);
+              setContenido([...contenido, producto]);
+              if (contenido.find((item) => item.name === producto.name)) {
+                const productos = contenido.map((item) =>
+                  item.name === producto.name
+                    ? {
+                        ...item,
+
+                        count: count === 0 ? count : count + 1,
+                      }
+                    : item
+                );
+                return setContenido(productos);
+              }
             };
 
             function agregarProductos(producto: any) {
@@ -59,6 +75,7 @@ export default function Carta({ data }: any) {
                       }
                     : item
                 );
+
                 const actProductos = productos.filter(
                   (item) => item.name !== "nada"
                 );
@@ -76,10 +93,11 @@ export default function Carta({ data }: any) {
               >
                 <Image
                   src={producto.image.desktop.slice(8)}
-                  className="rounded-lg"
+                  className="rounded-lg hover:border hover:border-[hsl(14,86%,42%)]"
                   width={502 / 2}
                   height={480 / 2}
                   alt={producto.name}
+                  priority
                 />
                 <div className="self-center -mt-5 text-sm">
                   {cart === false ? (
@@ -92,6 +110,7 @@ export default function Carta({ data }: any) {
                         width={24}
                         height={24}
                         alt="asd"
+                        style={{ width: "auto" }}
                       />
                       Add to Cart
                     </button>
@@ -108,7 +127,8 @@ export default function Carta({ data }: any) {
                           alt="decrement-quantity"
                         />
                       </button>
-                      <p>{count}</p>
+
+                      {count}
 
                       <button
                         className="border-2 rounded-full px-1 h-5"
@@ -144,6 +164,14 @@ export default function Carta({ data }: any) {
           </h2>
           {contenido.map(({ name, count = 1, price }: any) => {
             const totalPrice = count * price;
+
+            const remover = () => {
+              setCantidad(cantidad - count);
+              setPrecios(precios - totalPrice);
+
+              const borrar = contenido.filter((item) => item.name !== name);
+              return setContenido(borrar);
+            };
             console.log(contenido);
 
             return (
@@ -152,13 +180,16 @@ export default function Carta({ data }: any) {
                   <p className="font-bold text-xs">{name}</p>
                   <div className="font-bold flex text-sm gap-8 mt-1">
                     <p className="text-[hsl(14,86%,42%)]">
-                      {count === 0 ? "1" : count}x
+                      {count === false ? "1" : count}x
                     </p>
                     <p className="text-gray-400">${price}0</p>
                     <p className="text-gray-600">${totalPrice.toFixed(2)}</p>
                   </div>
                 </div>
-                <button className="border-2 rounded-full p-1 place-self-center">
+                <button
+                  onClick={remover}
+                  className="border-2 rounded-full p-1 place-self-center"
+                >
                   <Image
                     src="/images/icon-remove-item.svg"
                     width={10}
@@ -183,7 +214,7 @@ export default function Carta({ data }: any) {
       ) : (
         <div className="self-start bg-white rounded-lg px-4 py-6 w-96">
           <h2 className="font-extrabold text-xl pb-4 tracking-wide text-[hsl(14,86%,42%)] ">
-            Your Cart ({cantidad})
+            Your Cart (0)
           </h2>
           <div className="flex flex-col place-items-center w-full gap-4 my-4">
             <Image
