@@ -16,20 +16,17 @@ export default function Carta({ data }: any) {
         <h1 className="text-2xl  font-bold pt-2 pb-4">Desserts</h1>
         <div className=" grid gap-4 grid-cols-3 max-w-5xl ">
           {data.map((producto: any) => {
-            // const [count, setCount] = useState(0);
             var productocarrito = contenido.find(
               (item) => item.name === producto.name
             );
             const contador: any = productocarrito?.count;
+
             console.log(contador);
 
-            // var count: number = 0;
             const [cart, setCart] = useState(false);
 
             const handleSubmit = () => {
               setCart(!cart);
-              // setCount(+1);
-
               setPrecios(precios + +producto.price);
               setCantidad(cantidad + 1);
               setContenido([...contenido, { ...producto, count: 1 }]);
@@ -48,12 +45,9 @@ export default function Carta({ data }: any) {
             };
 
             function agregarProductos(producto: any) {
-              // setPrecios(count < 20 ? precios + +producto.price : precios);
-              // setCantidad(count === 20 ? cantidad : cantidad + 1);
-              // count + 1;
-              // setContenido([...contenido, producto]);
-              // count += 1;
-              // setCount(count + 1);
+              setPrecios(contador < 20 ? precios + +producto.price : precios);
+              setCantidad(contador === 20 ? cantidad : cantidad + 1);
+
               if (contenido.find((item) => item.name === producto.name)) {
                 const productos = contenido.map((item) =>
                   item.name === producto.name
@@ -71,7 +65,6 @@ export default function Carta({ data }: any) {
             function descontarProductos(producto: any) {
               setPrecios(precios - +producto.price);
               setCantidad(cantidad - 1);
-              // setCount(count >= 1 ? count - 1 : count);
 
               contador === 1 ? setCart(false) : setCart(true);
               if (contenido.find((item) => item.name === producto.name)) {
@@ -91,8 +84,6 @@ export default function Carta({ data }: any) {
                 console.log(actProductos);
                 return setContenido(actProductos);
               }
-              //   const nada = contenido.filter((nada) => nada.name !== "nada");
-              //   setContenido([nada]);
             }
 
             return (
