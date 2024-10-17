@@ -1,10 +1,11 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import Cart from "./cart";
 
 export default function Carta({ data }: any) {
-  const [contenido, setContenido] = useState<{ name: string }[]>([]);
+  const [contenido, setContenido] = useState<{ name: string; count: number }[]>(
+    []
+  );
   const [precios, setPrecios] = useState(0);
   const [cantidad, setCantidad] = useState(0);
   console.log(contenido);
@@ -16,17 +17,19 @@ export default function Carta({ data }: any) {
         <div className=" grid gap-4 grid-cols-3 max-w-5xl ">
           {data.map((producto: any) => {
             const [count, setCount] = useState(0);
+
+            console.log(count);
+
+            // var count: number = 0;
             const [cart, setCart] = useState(false);
 
             const handleSubmit = () => {
-              cart === false ? setCart(true) : setCart(false);
-              // setTimeout(() => {
-              //   setCart(false);
-              // }, 3000);
-              setCount(count + 1);
+              setCart(!cart);
+              setCount(+1);
+
               setPrecios(precios + +producto.price);
               setCantidad(cantidad + 1);
-              setContenido([...contenido, producto]);
+              setContenido([...contenido, { ...producto, count: 1 }]);
               if (contenido.find((item) => item.name === producto.name)) {
                 const productos = contenido.map((item) =>
                   item.name === producto.name
@@ -42,17 +45,19 @@ export default function Carta({ data }: any) {
             };
 
             function agregarProductos(producto: any) {
-              setPrecios(count < 20 ? precios + +producto.price : precios);
-              setCantidad(count === 20 ? cantidad : cantidad + 1);
-              setCount(count < 20 ? count + 1 : count);
-              setContenido([...contenido, producto]);
+              // setPrecios(count < 20 ? precios + +producto.price : precios);
+              // setCantidad(count === 20 ? cantidad : cantidad + 1);
+              // count + 1;
+              // setContenido([...contenido, producto]);
+              // count += 1;
+              setCount(count + 1);
               if (contenido.find((item) => item.name === producto.name)) {
                 const productos = contenido.map((item) =>
                   item.name === producto.name
                     ? {
                         ...item,
                         name: item.name,
-                        count: count === 20 ? count : count + 1,
+                        count: item.count + 1,
                       }
                     : item
                 );
@@ -63,7 +68,8 @@ export default function Carta({ data }: any) {
             function descontarProductos(producto: any) {
               setPrecios(precios - +producto.price);
               setCantidad(cantidad - 1);
-              setCount(count >= 1 ? count - 1 : count);
+              // setCount(count >= 1 ? count - 1 : count);
+
               count === 1 ? setCart(false) : setCart(true);
               if (contenido.find((item) => item.name === producto.name)) {
                 const productos = contenido.map((item) =>
@@ -93,7 +99,7 @@ export default function Carta({ data }: any) {
               >
                 <Image
                   src={producto.image.desktop.slice(8)}
-                  className="rounded-lg hover:border hover:border-[hsl(14,86%,42%)]"
+                  className="rounded-lg border border-transparent hover:border hover:border-[hsl(14,86%,42%)]"
                   width={502 / 2}
                   height={480 / 2}
                   alt={producto.name}
@@ -102,7 +108,7 @@ export default function Carta({ data }: any) {
                 <div className="self-center -mt-5 text-sm">
                   {cart === false ? (
                     <button
-                      className=" flex py-2 rounded-full bg-white border w-36 self-center justify-center gap-1 hover:text-[hsl(14,86%,42%)] hover:border-[hsl(14,86%,42%)] hover:duration-300"
+                      className=" flex py-2 rounded-full bg-white border border-transparent w-36 self-center justify-center gap-1 hover:text-[hsl(14,86%,42%)] hover:border-[hsl(14,86%,42%)] hover:duration-300"
                       onClick={handleSubmit}
                     >
                       <Image
@@ -168,7 +174,7 @@ export default function Carta({ data }: any) {
             const remover = () => {
               setCantidad(cantidad - count);
               setPrecios(precios - totalPrice);
-
+              count = 0;
               const borrar = contenido.filter((item) => item.name !== name);
               return setContenido(borrar);
             };
@@ -179,9 +185,7 @@ export default function Carta({ data }: any) {
                 <div>
                   <p className="font-bold text-xs">{name}</p>
                   <div className="font-bold flex text-sm gap-8 mt-1">
-                    <p className="text-[hsl(14,86%,42%)]">
-                      {count === false ? "1" : count}x
-                    </p>
+                    <p className="text-[hsl(14,86%,42%)]">{count}x</p>
                     <p className="text-gray-400">${price}0</p>
                     <p className="text-gray-600">${totalPrice.toFixed(2)}</p>
                   </div>
