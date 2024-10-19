@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-
+import MyModal from "./modal";
 export default function Carta({ data }: any) {
   const [contenido, setContenido] = useState<{ name: string; count: number }[]>(
     []
@@ -9,6 +9,14 @@ export default function Carta({ data }: any) {
   const [precios, setPrecios] = useState(0);
   const [cantidad, setCantidad] = useState(0);
   console.log(contenido);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
 
   return (
     <div className="flex justify-center py-6 gap-6 items-center ">
@@ -20,12 +28,11 @@ export default function Carta({ data }: any) {
               (item) => item.name === producto.name
             );
             const contador: any = productocarrito?.count;
-
             console.log(contador);
 
             const [cart, setCart] = useState(false);
 
-            const handleSubmit = () => {
+            const handleSubmit = (e: any) => {
               setCart(!cart);
               setPrecios(precios + +producto.price);
               setCantidad(cantidad + 1);
@@ -54,7 +61,7 @@ export default function Carta({ data }: any) {
                     ? {
                         ...item,
                         name: item.name,
-                        count: item.count + 1,
+                        count: item.count < 20 ? item.count + 1 : item.count,
                       }
                     : item
                 );
@@ -93,7 +100,11 @@ export default function Carta({ data }: any) {
               >
                 <Image
                   src={producto.image.desktop.slice(8)}
-                  className="rounded-lg border border-transparent hover:border hover:border-[hsl(14,86%,42%)]"
+                  className={
+                    cart === true
+                      ? `rounded-lg border-2 border-[hsl(14,86%,42%)]`
+                      : `rounded-lg border-2 border-transparent`
+                  }
                   width={502 / 2}
                   height={480 / 2}
                   alt={producto.name}
@@ -102,7 +113,7 @@ export default function Carta({ data }: any) {
                 <div className="self-center -mt-5 text-sm">
                   {cart === false ? (
                     <button
-                      className=" flex py-2 rounded-full bg-white border border-transparent w-36 self-center justify-center gap-1 hover:text-[hsl(14,86%,42%)] hover:border-[hsl(14,86%,42%)] hover:duration-300"
+                      className=" flex py-2 rounded-full bg-white border border-transparent h-[42px] w-36 self-center justify-center items-center gap-1 hover:text-[hsl(14,86%,42%)] hover:border-[hsl(14,86%,42%)] hover:duration-300"
                       onClick={handleSubmit}
                     >
                       <Image
@@ -168,12 +179,11 @@ export default function Carta({ data }: any) {
             const remover = () => {
               setCantidad(cantidad - count);
               setPrecios(precios - totalPrice);
-              count = 0;
+
               const borrar = contenido.filter((item) => item.name !== name);
               return setContenido(borrar);
             };
             console.log(contenido);
-
             return (
               <div key={name} className="py-4 border-b flex justify-between">
                 <div>
@@ -199,14 +209,30 @@ export default function Carta({ data }: any) {
               </div>
             );
           })}
-          <div className="flex justify-between items-center pt-8">
+          <div className="flex justify-between items-center  pt-8">
             <p className="text-xs">Order Total </p>
             <p className="text-xl font-bold"> ${precios.toFixed(2)}</p>
           </div>
-          <div className="text-center pt-8 ">
-            <button className="text-white text-sm w-full bg-[hsl(14,86%,42%)] py-3 rounded-full">
-              Confirm Order
-            </button>
+          <div className="bg-[hsl(20,50%,98%)]  flex py-3 mt-7 rounded-lg justify-center gap-2 items-center">
+            <Image
+              src="/images/icon-carbon-neutral.svg"
+              height={20}
+              width={30}
+              alt="gas"
+            />
+            <p className="text-xs tracking-wide">
+              This is a <span className="font-bold">carbon-neutral</span>{" "}
+              delivery
+            </p>
+          </div>
+          <div className="text-center pt-6 ">
+            <div>
+              <MyModal
+                isOpen={isOpen}
+                closeModal={closeModal}
+                openModal={openModal}
+              />
+            </div>
           </div>
         </div>
       ) : (
