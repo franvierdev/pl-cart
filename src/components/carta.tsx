@@ -32,7 +32,7 @@ export default function Carta({ data }: any) {
 
             const [cart, setCart] = useState(false);
 
-            const handleSubmit = (e: any) => {
+            const handleSubmit = () => {
               setCart(!cart);
               setPrecios(precios + +producto.price);
               setCantidad(cantidad + 1);
@@ -231,6 +231,11 @@ export default function Carta({ data }: any) {
                 isOpen={isOpen}
                 closeModal={closeModal}
                 openModal={openModal}
+                contenido={contenido}
+                setContenido={setContenido}
+                precios={precios}
+                setPrecios={setPrecios}
+                cantidad={cantidad}
               />
             </div>
           </div>
