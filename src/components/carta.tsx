@@ -19,10 +19,10 @@ export default function Carta({ data }: any) {
   }
 
   return (
-    <div className="flex justify-center py-6 gap-6 items-center ">
+    <div className="flex max-lg:flex-col justify-center py-6 gap-6 items-center ">
       <main className="">
         <h1 className="text-2xl  font-bold pt-2 pb-4">Desserts</h1>
-        <div className=" grid gap-4 grid-cols-3 max-w-5xl ">
+        <div className=" lg:grid gap-4 grid-cols-3 max-w-5xl ">
           {data.map((producto: any) => {
             var productocarrito = contenido.find(
               (item) => item.name === producto.name
@@ -136,6 +136,7 @@ export default function Carta({ data }: any) {
                           width={10}
                           height={10}
                           alt="decrement-quantity"
+                          className=""
                         />
                       </button>
 
@@ -169,7 +170,7 @@ export default function Carta({ data }: any) {
         </div>
       </main>
       {contenido.length ? (
-        <div className="self-start bg-white rounded-lg px-4 py-6 w-96">
+        <div className=" max-lg:self-center self-start bg-white rounded-lg px-4 py-6 w-96">
           <h2 className="font-extrabold text-xl pb-4 tracking-wide text-[hsl(14,86%,42%)] ">
             Your Cart ({cantidad})
           </h2>
@@ -225,23 +226,22 @@ export default function Carta({ data }: any) {
               delivery
             </p>
           </div>
-          <div className="text-center pt-6 ">
-            <div>
-              <MyModal
-                isOpen={isOpen}
-                closeModal={closeModal}
-                openModal={openModal}
-                contenido={contenido}
-                setContenido={setContenido}
-                precios={precios}
-                setPrecios={setPrecios}
-                cantidad={cantidad}
-              />
-            </div>
+
+          <div>
+            <MyModal
+              isOpen={isOpen}
+              closeModal={closeModal}
+              openModal={openModal}
+              contenido={contenido}
+              setContenido={setContenido}
+              precios={precios}
+              setPrecios={setPrecios}
+              cantidad={cantidad}
+            />
           </div>
         </div>
       ) : (
-        <div className="self-start bg-white rounded-lg px-4 py-6 w-96">
+        <div className="max-lg:self-center self-start bg-white rounded-lg px-4 py-6 w-96">
           <h2 className="font-extrabold text-xl pb-4 tracking-wide text-[hsl(14,86%,42%)] ">
             Your Cart (0)
           </h2>

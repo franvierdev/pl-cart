@@ -59,7 +59,7 @@ export default function MyModal({
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <DialogPanel className="w-full max-w-lg transform overflow-hidden rounded-lg bg-white p-8 text-left align-middle shadow-xl transition-all">
+                <DialogPanel className="w-full max-w-lg transform overflow-hidden rounded-xl bg-white p-8 text-left align-middle shadow-xl transition-all">
                   <Image
                     src="/images/icon-order-confirmed.svg"
                     height={40}
