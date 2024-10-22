@@ -102,8 +102,20 @@ export default function Carta({ data }: any) {
                   src={producto.image.desktop.slice(8)}
                   className={
                     cart === true
-                      ? `rounded-lg border-2 border-[hsl(14,86%,42%)]`
-                      : `rounded-lg border-2 border-transparent`
+                      ? `max-lg:hidden rounded-lg border-2 border-[hsl(14,86%,42%)]`
+                      : `max-lg:hidden rounded-lg border-2 border-transparent`
+                  }
+                  width={502 / 2}
+                  height={480 / 2}
+                  alt={producto.name}
+                  priority
+                />
+                <Image
+                  src={producto.image.mobile.slice(8)}
+                  className={
+                    cart === true
+                      ? `lg:hidden rounded-lg border-2 border-[hsl(14,86%,42%)]`
+                      : `lg:hidden rounded-lg border-2 border-transparent`
                   }
                   width={502 / 2}
                   height={480 / 2}
