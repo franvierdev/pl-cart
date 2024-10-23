@@ -114,8 +114,8 @@ export default function Carta({ data }: any) {
                   src={producto.image.mobile.slice(8)}
                   className={
                     cart === true
-                      ? `lg:hidden rounded-lg border-2 border-[hsl(14,86%,42%)]`
-                      : `lg:hidden rounded-lg border-2 border-transparent`
+                      ? `lg:hidden rounded-lg border-2 border-[hsl(14,86%,42%)] w-80`
+                      : `lg:hidden rounded-lg border-2 border-transparent w-80`
                   }
                   width={502 / 2}
                   height={480 / 2}
@@ -125,7 +125,7 @@ export default function Carta({ data }: any) {
                 <div className="self-center -mt-5 text-sm">
                   {cart === false ? (
                     <button
-                      className=" flex py-2 rounded-full bg-white border border-transparent h-[42px] w-36 self-center justify-center items-center gap-1 hover:text-[hsl(14,86%,42%)] hover:border-[hsl(14,86%,42%)] hover:duration-300"
+                      className=" flex py-2 rounded-full bg-white border border-transparent h-[42px] w-36 self-center justify-center items-center gap-1 hover:text-[hsl(14,86%,42%)] hover:border-[hsl(14,86%,42%)] hover:duration-300 max-lg:border-[hsl(7,20%,60%)]"
                       onClick={handleSubmit}
                     >
                       <Image
