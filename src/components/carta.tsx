@@ -22,7 +22,7 @@ export default function Carta({ data }: any) {
     <div className="flex max-md:flex-col justify-center py-6 gap-6 items-center ">
       <main className="">
         <h1 className="text-2xl  font-bold pt-2 pb-4">Desserts</h1>
-        <div className="  lg:grid gap-4 lg:grid-cols-3 max-w-5xl ">
+        <div className=" flex flex-col max-lg:gap-6 max-lg:w-90 lg:grid lg:gap-4 lg:grid-cols-3 max-w-5xl ">
           {data.map((producto: any) => {
             var productocarrito = contenido.find(
               (item) => item.name === producto.name
@@ -182,7 +182,7 @@ export default function Carta({ data }: any) {
         </div>
       </main>
       {contenido.length ? (
-        <div className=" max-md:self-center self-start bg-white rounded-lg px-4  py-6 max-md:w-80 lg:w-96">
+        <div className=" max-lg:self-center self-start bg-white rounded-lg px-4  py-6 max-lg:w-80 lg:w-96">
           <h2 className="font-extrabold text-xl pb-4 tracking-wide text-[hsl(14,86%,42%)] ">
             Your Cart ({cantidad})
           </h2>
@@ -239,7 +239,7 @@ export default function Carta({ data }: any) {
             </p>
           </div>
 
-          <div>
+          <div className="mt-4">
             <MyModal
               isOpen={isOpen}
               closeModal={closeModal}
@@ -253,7 +253,7 @@ export default function Carta({ data }: any) {
           </div>
         </div>
       ) : (
-        <div className="max-md:self-center self-start bg-white rounded-lg px-4 py-6 w-96">
+        <div className="max-md:self-center self-start bg-white rounded-lg px-4 py-6  max-lg:w-80 lg:w-96">
           <h2 className="font-extrabold text-xl pb-4 tracking-wide text-[hsl(14,86%,42%)] ">
             Your Cart (0)
           </h2>
